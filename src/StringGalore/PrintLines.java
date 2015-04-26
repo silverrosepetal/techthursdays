@@ -29,27 +29,19 @@ public class PrintLines {
 
     private static void printSplitString(char[] charStr, int length, int position) {
         int nextPosition = position;
-        if(length == 0) {
-            while(charStr[nextPosition] != ' ') nextPosition--;
-            length = charStr.length - nextPosition;
+        int counter = 0;
+        while(counter <= length) {
+            nextPosition--;
+            counter++;
+        }
+        while(charStr[nextPosition] != ' ') nextPosition--;
+        length = position-nextPosition;
+        nextPosition++; //compensate for the prepended space
+        if(length >= nextPosition){
+            printChars(charStr, 0, position);
+        }else {
             printSplitString(charStr, length, nextPosition);
-            nextPosition++;
             printChars(charStr, nextPosition, position);
-        }else{
-            int counter = 0;
-            while(counter <= length) {
-                nextPosition--;
-                counter++;
-            }
-            while(charStr[nextPosition] != ' ') nextPosition--;
-            length = position-nextPosition;
-            nextPosition++;
-            if(length >= nextPosition){
-                printChars(charStr, 0, position);
-            }else {
-                printSplitString(charStr, length, nextPosition);
-                printChars(charStr, nextPosition, position);
-            }
         }
     }
 
